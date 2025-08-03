@@ -6,6 +6,6 @@ services:
     startCommand: python app.py
     envVars:
       - key: TELEGRAM_TOKEN
-        value: 8356418414:AAGKhqf58E4ob4K_a53MjwR4dGHCCBPXYME
+        value: "8356418414:AAGKhqf58E4ob4K_a53MjwR4dGHCCBPXYME"
       - key: TELEGRAM_CHAT_ID
-        value: -4827525419
+        value: "-4827525419"
