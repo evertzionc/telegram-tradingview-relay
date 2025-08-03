@@ -7,17 +7,11 @@ app = Flask(__name__)
 TELEGRAM_TOKEN = os.getenv('TELEGRAM_TOKEN')
 TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID')
 
-@app.route('/webhook', methods=['POST'])
-def webhook():
-    data = request.json
-    print("Received webhook data:", data)
-    message = data.get("text", str(data))
-    try:
-        send_to_telegram(message)
-        print("send_to_telegram called successfully")
-    except Exception as e:
-        print("Error in send_to_telegram:", e)
-    return 'OK', 200
+@app.route('/test', methods=['GET'])
+def test():
+    print("Test endpoint hit!")
+    return 'Test OK', 200
+
 
 def send_to_telegram(text):
     url = f'https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage'
