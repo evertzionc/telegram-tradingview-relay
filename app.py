@@ -23,13 +23,13 @@ print("Test endpoint hit!", file=sys.stdout, flush=True)
 @app.route('/webhook', methods=['POST'])
 def webhook():
     data = request.json
-    print("Received webhook data:", data, , file=sys.stdout, flush=True))
+    print("Received webhook data:", data, , file=sys.stdout, flush=True)
     message = data.get("text", str(data))  # If 'text' isn't in JSON, use raw data
     try:
         send_to_telegram(message)
-        print("send_to_telegram called successfully", file=sys.stdout, flush=True))
+        print("send_to_telegram called successfully", file=sys.stdout, flush=True)
     except Exception as e:
-        print("Error in send_to_telegram:", e, , file=sys.stdout, flush=True))
+        print("Error in send_to_telegram:", e, , file=sys.stdout, flush=True)
     return 'OK', 200
 
 # Sends the message to Telegram
