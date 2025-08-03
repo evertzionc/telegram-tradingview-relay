@@ -18,7 +18,7 @@ def webhook():
         send_to_telegram(message)
         print("send_to_telegram called successfully", file=sys.stdout, flush=True)
     except Exception as e:
-        print("Error in send_to_telegram:", e, , file=sys.stdout, flush=True)
+        print("Error in send_to_telegram:", e, file=sys.stdout, flush=True)
     return 'OK', 200
 
 # Sends the message to Telegram
