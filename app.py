@@ -21,7 +21,10 @@ def send_to_telegram(text):
         'text': text,
         'parse_mode': 'Markdown'
     }
-    requests.post(url, json=payload)
+    response = requests.post(url, json=payload)
+    print("Telegram API Status:", response.status_code)
+    print("Telegram API Response:", response.text)
+
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
