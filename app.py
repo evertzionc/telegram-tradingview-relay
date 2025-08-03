@@ -1,6 +1,7 @@
 from flask import Flask, request
 import requests
 import os
+import sys
 
 app = Flask(__name__)
 
@@ -14,9 +15,7 @@ print(f"Loaded TELEGRAM_CHAT_ID: {TELEGRAM_CHAT_ID}")
 # Test route to check logging works
 @app.route('/test', methods=['GET'])
 def test():
-    import sys
 print("Test endpoint hit!", file=sys.stdout, flush=True)
-
     return 'Test OK', 200
 
 # Webhook endpoint that TradingView will post to
