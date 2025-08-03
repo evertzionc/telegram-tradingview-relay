@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: telegram-webhook
+    env: python
+    buildCommand: ""
+    startCommand: python app.py
+    envVars:
+      - key: TELEGRAM_TOKEN
+        value: 8461410843:AAHGaooKHZEO6-Qfs-Q9FO_jkN4_sljkeCg
+      - key: TELEGRAM_CHAT_ID
+        value: -4827525419
