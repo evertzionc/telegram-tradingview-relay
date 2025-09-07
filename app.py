@@ -25,8 +25,8 @@ def webhook():
 
     # 🔹 Log raw body
     raw_data = request.get_data(as_text=True)
-    #print("=== RAW BODY ===", file=sys.stdout, flush=True)
-    #print(raw_data, file=sys.stdout, flush=True)
+    #    print("=== RAW BODY ===", file=sys.stdout, flush=True)
+    #    print(raw_data, file=sys.stdout, flush=True)
 
     # ✅ Looser validation for Content-Type
     if "application/json" not in request.content_type.lower():
