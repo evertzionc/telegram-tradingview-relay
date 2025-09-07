@@ -23,7 +23,7 @@ def webhook():
     for k, v in request.headers.items():
         print(f"{k}: {v}", file=sys.stdout, flush=True)
 
-    # 🔹 Log raw body (before parsing)
+    # 🔹 Log raw body
     raw_data = request.get_data(as_text=True)
     print("=== RAW BODY ===", file=sys.stdout, flush=True)
     print(raw_data, file=sys.stdout, flush=True)
@@ -43,11 +43,14 @@ def webhook():
     print("=== PARSED JSON ===", file=sys.stdout, flush=True)
     print(json.dumps(data, indent=2), file=sys.stdout, flush=True)
 
-    # Extract message
-    message = data.get("text", str(data))
+    # 🔹 Format Telegram message with multiple lines
+    type_action = f"{data.get('type', '').capitalize()} {data.get('action', '').upper()}"
+    ticker_line = data.get('ticker', 'Unknown Ticker')
+    price_line = f"Price: {data.get('price', 'N/A')}"
+    telegram_message = f"{type_action}\n{ticker_line}\n{price_line}"
 
     try:
-        send_to_telegram(message)
+        send_to_telegram(telegram_message)
         print("send_to_telegram called successfully", file=sys.stdout, flush=True)
     except Exception as e:
         print("Error in send_to_telegram:", e, file=sys.stdout, flush=True)
