@@ -28,9 +28,9 @@ def webhook():
     print("=== RAW BODY ===", file=sys.stdout, flush=True)
     print(raw_data, file=sys.stdout, flush=True)
 
-    # Validate Content-Type
-    if request.content_type != 'application/json':
-        print("Invalid Content-Type received", file=sys.stdout, flush=True)
+    # ✅ Looser validation for Content-Type
+    if "application/json" not in request.content_type.lower():
+        print(f"Invalid Content-Type received: {request.content_type}", file=sys.stdout, flush=True)
         return 'Unsupported Media Type', 415
 
     # Parse JSON safely
