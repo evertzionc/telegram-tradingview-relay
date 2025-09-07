@@ -12,8 +12,13 @@ TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID')
 # Webhook endpoint that TradingView will post to
 @app.route('/webhook', methods=['POST'])
 def webhook():
+    if request.content_type != 'application/json':
+        return 'Unsupported Media Type', 415
+
     data = request.json
+    print(f"Received data: {data}", file=sys.stdout, flush=True)  # Log the incoming data
     message = data.get("text", str(data))  # If 'text' isn't in JSON, use raw data
+
     try:
         send_to_telegram(message)
         print("send_to_telegram called successfully", file=sys.stdout, flush=True)
