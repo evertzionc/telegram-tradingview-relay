@@ -20,7 +20,7 @@ def index():
 def webhook():
     # 🔹 Log headers
     # print("=== HEADERS ===", file=sys.stdout, flush=True)
-    for k, v in request.headers.items():
+    # for k, v in request.headers.items():
     #    print(f"{k}: {v}", file=sys.stdout, flush=True)
 
     # 🔹 Log raw body
@@ -30,14 +30,14 @@ def webhook():
 
     # ✅ Looser validation for Content-Type
     if "application/json" not in request.content_type.lower():
-    #    print(f"Invalid Content-Type received: {request.content_type}", file=sys.stdout, flush=True)
+        print(f"Invalid Content-Type received: {request.content_type}", file=sys.stdout, flush=True)
         return 'Unsupported Media Type', 415
 
     # Parse JSON safely
     try:
         data = request.get_json(force=True)
     except Exception as e:
-    #    print("JSON parse error:", e, file=sys.stdout, flush=True)
+        print("JSON parse error:", e, file=sys.stdout, flush=True)
         return 'Bad Request - invalid JSON', 400
 
     #print("=== PARSED JSON ===", file=sys.stdout, flush=True)
