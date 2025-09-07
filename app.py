@@ -46,8 +46,8 @@ def webhook():
     # 🔹 Format Telegram message with multiple lines
     type_action = f"{data.get('type', '').capitalize()} {data.get('action', '').upper()}"
     ticker_line = data.get('ticker', 'Unknown Ticker')
-    price_line = f"Price: {data.get('price', 'N/A')}"
-    telegram_message = f"{type_action}\n{ticker_line}\n{price_line}"
+    # price_line = f"Price: {data.get('price', 'N/A')}"
+    telegram_message = f"{type_action}\n{ticker_line}" # \n{price_line}"
 
     try:
         send_to_telegram(telegram_message)
