@@ -2,6 +2,7 @@ from flask import Flask, request
 import requests
 import os
 import sys
+import json
 
 app = Flask(__name__)
 
@@ -9,25 +10,48 @@ app = Flask(__name__)
 TELEGRAM_TOKEN = os.getenv('TELEGRAM_TOKEN')
 TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID')
 
+# Health-check route for Render
+@app.route("/", methods=["GET", "HEAD"])
+def index():
+    return "Service is running", 200
+
 # Webhook endpoint that TradingView will post to
 @app.route('/webhook', methods=['POST'])
 def webhook():
-    data = request.json
-    print(f"Received data: {data}", file=sys.stdout, flush=True)  # Log the incoming data
-    message = data.get("text", str(data))  # If 'text' isn't in JSON, use raw data
+    # 🔹 Log headers
+    print("=== HEADERS ===", file=sys.stdout, flush=True)
+    for k, v in request.headers.items():
+        print(f"{k}: {v}", file=sys.stdout, flush=True)
 
+    # 🔹 Log raw body (before parsing)
+    raw_data = request.get_data(as_text=True)
+    print("=== RAW BODY ===", file=sys.stdout, flush=True)
+    print(raw_data, file=sys.stdout, flush=True)
+
+    # Validate Content-Type
     if request.content_type != 'application/json':
+        print("Invalid Content-Type received", file=sys.stdout, flush=True)
         return 'Unsupported Media Type', 415
 
-    data = request.json
-    print(f"Received data: {data}", file=sys.stdout, flush=True)  # Log the incoming data
-    message = data.get("text", str(data))  # If 'text' isn't in JSON, use raw data
+    # Parse JSON safely
+    try:
+        data = request.get_json(force=True)
+    except Exception as e:
+        print("JSON parse error:", e, file=sys.stdout, flush=True)
+        return 'Bad Request - invalid JSON', 400
+
+    print("=== PARSED JSON ===", file=sys.stdout, flush=True)
+    print(json.dumps(data, indent=2), file=sys.stdout, flush=True)
+
+    # Extract message
+    message = data.get("text", str(data))
 
     try:
         send_to_telegram(message)
         print("send_to_telegram called successfully", file=sys.stdout, flush=True)
     except Exception as e:
         print("Error in send_to_telegram:", e, file=sys.stdout, flush=True)
+
     return 'OK', 200
 
 # Sends the message to Telegram
