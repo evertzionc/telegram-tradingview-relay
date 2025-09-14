@@ -67,6 +67,7 @@ def send_to_telegram(text):
     if type == 'C-':
         url = f'https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage'
         print("IF TYPE = C CONDITION", file=sys.stdout, flush=True)
+        print(url, file=sys.stdout, flush=True)
         payload = {
             'chat_id': TELEGRAM_CHAT_ID,
             'text': text,
@@ -75,6 +76,7 @@ def send_to_telegram(text):
     else: 
         url = f'https://api.telegram.org/bot{TELEGRAM_TOKEN_STOCK}/sendMessage'
         print("IF TYPE = S CONDITION", file=sys.stdout, flush=True)
+        print(url, file=sys.stdout, flush=True)
         payload = {
             'chat_id': TELEGRAM_CHAT_ID_STOCK,
             'text': text,
