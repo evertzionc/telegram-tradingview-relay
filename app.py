@@ -73,12 +73,21 @@ def send_to_telegram(text, type_value):
             'text': text,
             'parse_mode': 'Markdown'
         }
-    else: 
+    elif type_value == 'S-':
         url = f'https://api.telegram.org/bot{TELEGRAM_TOKEN_STOCK}/sendMessage'
         print("IF TYPE = S CONDITION", file=sys.stdout, flush=True)
         print(url, file=sys.stdout, flush=True)
         payload = {
             'chat_id': TELEGRAM_CHAT_ID_STOCK,
+            'text': text,
+            'parse_mode': 'Markdown'
+        }
+    else:
+        url = f'https://api.telegram.org/bot{TELEGRAM_TOKEN_PURCHASED}/sendMessage'
+        print("IF TYPE = S CONDITION", file=sys.stdout, flush=True)
+        print(url, file=sys.stdout, flush=True)
+        payload = {
+            'chat_id': TELEGRAM_CHAT_ID_PURCHASED,
             'text': text,
             'parse_mode': 'Markdown'
         }
