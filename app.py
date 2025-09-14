@@ -9,6 +9,8 @@ app = Flask(__name__)
 # Load environment variables
 TELEGRAM_TOKEN = os.getenv('TELEGRAM_TOKEN')
 TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID')
+TELEGRAM_TOKEN_STOCK = os.getenv('TELEGRAM_TOKEN_STOCK')
+TELEGRAM_CHAT_ID_STOCK = os.getenv('TELEGRAM_CHAT_ID_STOCK')
 
 # Health-check route for Render
 @app.route("/", methods=["GET", "HEAD"])
@@ -44,6 +46,7 @@ def webhook():
     #print(json.dumps(data, indent=2), file=sys.stdout, flush=True)
 
     # 🔹 Format Telegram message with multiple lines
+    type = data.get('type', '').capitalize()
     type_action = f"{data.get('type', '').capitalize()} {data.get('action', '').upper()}"
     ticker_line = data.get('ticker', 'Unknown Ticker')
     # price_line = f"Price: {data.get('price', 'N/A')}"
@@ -59,14 +62,24 @@ def webhook():
 
 # Sends the message to Telegram
 def send_to_telegram(text):
-    url = f'https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage'
-    payload = {
-        'chat_id': TELEGRAM_CHAT_ID,
-        'text': text,
-        'parse_mode': 'Markdown'
-    }
-    response = requests.post(url, json=payload)
-    response.raise_for_status()  # Raises an error if status code is not 200
+    if type == 'C-':
+        url = f'https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage'
+        payload = {
+            'chat_id': TELEGRAM_CHAT_ID,
+            'text': text,
+            'parse_mode': 'Markdown'
+        }
+        response = requests.post(url, json=payload)
+        response.raise_for_status()  # Raises an error if status code is not 200
+    else: 
+        url = f'https://api.telegram.org/bot{TELEGRAM_TOKEN_STOCK}/sendMessage'
+        payload = {
+            'chat_id': TELEGRAM_CHAT_ID_STOCK,
+            'text': text,
+            'parse_mode': 'Markdown'
+        }
+        response = requests.post(url, json=payload)
+        response.raise_for_status()  # Raises an error if status code is not 200
 
 # Entry point for running locally
 if __name__ == '__main__':
