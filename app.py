@@ -49,8 +49,8 @@ def webhook():
 
     # 🔹 Format Telegram message with multiple lines
     type_value = data.get('type', '').capitalize()
-    print(data.get('type_value', '').capitalize(), file=sys.stdout, flush=True)
-    print(type_value, file=sys.stdout, flush=True)
+    # print(data.get('type_value', '').capitalize(), file=sys.stdout, flush=True)
+    # print(type_value, file=sys.stdout, flush=True)
     type_action = f"{data.get('type', '').capitalize()} {data.get('action', '').upper()}"
     ticker_line = data.get('ticker', 'Unknown Ticker')
     # price_line = f"Price: {data.get('price', 'N/A')}"
@@ -68,8 +68,6 @@ def webhook():
 def send_to_telegram(text, type_value):
     if type_value == 'C-':
         url = f'https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage'
-        print("IF TYPE = C CONDITION", file=sys.stdout, flush=True)
-        print(url, file=sys.stdout, flush=True)
         payload = {
             'chat_id': TELEGRAM_CHAT_ID,
             'text': text,
@@ -77,8 +75,6 @@ def send_to_telegram(text, type_value):
         }
     elif type_value == 'S-':
         url = f'https://api.telegram.org/bot{TELEGRAM_TOKEN_STOCK}/sendMessage'
-        print("IF TYPE = S CONDITION", file=sys.stdout, flush=True)
-        print(url, file=sys.stdout, flush=True)
         payload = {
             'chat_id': TELEGRAM_CHAT_ID_STOCK,
             'text': text,
@@ -86,8 +82,6 @@ def send_to_telegram(text, type_value):
         }
     else:
         url = f'https://api.telegram.org/bot{TELEGRAM_TOKEN_PURCHASED}/sendMessage'
-        print("IF TYPE = S CONDITION", file=sys.stdout, flush=True)
-        print(url, file=sys.stdout, flush=True)
         payload = {
             'chat_id': TELEGRAM_CHAT_ID_PURCHASED,
             'text': text,
