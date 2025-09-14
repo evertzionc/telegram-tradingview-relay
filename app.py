@@ -63,27 +63,26 @@ def webhook():
 
 # Sends the message to Telegram
 def send_to_telegram(text):
-    if data.get('type', '').capitalize() == 'C-':
+    if data.get('type', '').strip().upper() == 'C-':
         url = f'https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage'
-        print("IF YYPE = C CONDITION", file=sys.stdout, flush=True)
+        print("IF TYPE = C CONDITION", file=sys.stdout, flush=True)
         payload = {
             'chat_id': TELEGRAM_CHAT_ID,
             'text': text,
             'parse_mode': 'Markdown'
         }
-        response = requests.post(url, json=payload)
-        response.raise_for_status()  # Raises an error if status code is not 200
     else: 
         url = f'https://api.telegram.org/bot{TELEGRAM_TOKEN_STOCK}/sendMessage'
-        print("IF YYPE = S CONDITION", file=sys.stdout, flush=True)
+        print("IF TYPE = S CONDITION", file=sys.stdout, flush=True)
         payload = {
             'chat_id': TELEGRAM_CHAT_ID_STOCK,
             'text': text,
             'parse_mode': 'Markdown'
         }
-        response = requests.post(url, json=payload)
-        response.raise_for_status()  # Raises an error if status code is not 200
 
+    response = requests.post(url, json=payload)
+    response.raise_for_status()
+    
 # Entry point for running locally
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
