@@ -48,6 +48,7 @@ def webhook():
     # 🔹 Format Telegram message with multiple lines
     type = data.get('type', '').capitalize()
     print(data.get('type', '').capitalize(), file=sys.stdout, flush=True)
+    print(type, file=sys.stdout, flush=True)
     type_action = f"{data.get('type', '').capitalize()} {data.get('action', '').upper()}"
     ticker_line = data.get('ticker', 'Unknown Ticker')
     # price_line = f"Price: {data.get('price', 'N/A')}"
