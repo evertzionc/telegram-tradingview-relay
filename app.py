@@ -63,7 +63,7 @@ def webhook():
 
 # Sends the message to Telegram
 def send_to_telegram(text):
-    if data.type == 'C-':
+    if data.get('type', '').capitalize() == 'C-':
         url = f'https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage'
         print("IF YYPE = C CONDITION", file=sys.stdout, flush=True)
         payload = {
