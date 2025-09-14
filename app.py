@@ -65,6 +65,7 @@ def webhook():
 def send_to_telegram(text):
     if type == 'C-':
         url = f'https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage'
+        print("IF YYPE = C CONDITION", file=sys.stdout, flush=True)
         payload = {
             'chat_id': TELEGRAM_CHAT_ID,
             'text': text,
@@ -74,6 +75,7 @@ def send_to_telegram(text):
         response.raise_for_status()  # Raises an error if status code is not 200
     else: 
         url = f'https://api.telegram.org/bot{TELEGRAM_TOKEN_STOCK}/sendMessage'
+         print("IF YYPE = S CONDITION", file=sys.stdout, flush=True)
         payload = {
             'chat_id': TELEGRAM_CHAT_ID_STOCK,
             'text': text,
