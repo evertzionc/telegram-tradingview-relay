@@ -86,7 +86,6 @@ def send_to_telegram(text, type_value):
             'text': text,
             'parse_mode': 'Markdown'
         }
-
     response = requests.post(url, json=payload)
     response.raise_for_status()
     
