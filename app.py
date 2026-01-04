@@ -34,14 +34,14 @@ def webhook():
 
     # ✅ Looser validation for Content-Type
     if "application/json" not in request.content_type.lower():
-        print(f"Invalid Content-Type received: {request.content_type}", file=sys.stdout, flush=True)
+    #   print(f"Invalid Content-Type received: {request.content_type}", file=sys.stdout, flush=True)
         return 'Unsupported Media Type', 415
 
     # Parse JSON safely
     try:
         data = request.get_json(force=True)
     except Exception as e:
-        print("JSON parse error:", e, file=sys.stdout, flush=True)
+    #   print("JSON parse error:", e, file=sys.stdout, flush=True)
         return 'Bad Request - invalid JSON', 400
 
     #print("=== PARSED JSON ===", file=sys.stdout, flush=True)
@@ -58,9 +58,9 @@ def webhook():
 
     try:
         send_to_telegram(telegram_message, type_value)
-        print("send_to_telegram called successfully", file=sys.stdout, flush=True)
+    #   print("send_to_telegram called successfully", file=sys.stdout, flush=True)
     except Exception as e:
-        print("Error in send_to_telegram:", e, file=sys.stdout, flush=True)
+    #   print("Error in send_to_telegram:", e, file=sys.stdout, flush=True)
 
     return 'OK', 200
 
@@ -94,5 +94,5 @@ def send_to_telegram(text, type_value):
 # Entry point for running locally
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
-    print(f"Starting Flask app on port {port}")
+#   print(f"Starting Flask app on port {port}")
     app.run(host="0.0.0.0", port=port)
