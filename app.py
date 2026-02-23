@@ -23,7 +23,7 @@ def index():
 @app.route('/webhook', methods=['POST'])
 def webhook():
     # 🔹 Log headers
-    print("=== HEADERS ===", file=sys.stdout, flush=True)
+    print("==== HEADERS ===", file=sys.stdout, flush=True)
     for k, v in request.headers.items():
         print(f"{k}: {v}", file=sys.stdout, flush=True)
 
