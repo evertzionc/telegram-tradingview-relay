@@ -17,7 +17,7 @@ TELEGRAM_CHAT_ID_PURCHASED = os.getenv('TELEGRAM_CHAT_ID_PURCHASED')
 # Health-check route for Render
 @app.route("/", methods=["GET", "HEAD"])
 def index():
-return "Service is running", 200
+    return "Service is running", 200
 
 # Webhook endpoint that TradingView will post to
 @app.route('/webhook', methods=['POST'])
@@ -34,8 +34,8 @@ def webhook():
 
     # ✅ Looser validation for Content-Type
     if "application/json" not in request.content_type.lower():
-       print(f"Invalid Content-Type received: {request.content_type}", file=sys.stdout, flush=True)
-        return 'Unsupported Media Type', 415
+        print(f"Invalid Content-Type received: {request.content_type}", file=sys.stdout, flush=True)
+            return 'Unsupported Media Type', 415
 
     # Parse JSON safely
     try:
