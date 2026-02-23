@@ -35,14 +35,14 @@ def webhook():
     # ✅ Looser validation for Content-Type
     if "application/json" not in request.content_type.lower():
         print(f"Invalid Content-Type received: {request.content_type}", file=sys.stdout, flush=True)
-            return 'Unsupported Media Type', 415
+        return 'Unsupported Media Type', 415
 
     # Parse JSON safely
     try:
         data = request.get_json(force=True)
     except Exception as e:
        print("JSON parse error:", e, file=sys.stdout, flush=True)
-        return 'Bad Request - invalid JSON', 400
+       return 'Bad Request - invalid JSON', 400
 
     print("=== PARSED JSON ===", file=sys.stdout, flush=True)
     print(json.dumps(data, indent=2), file=sys.stdout, flush=True)
