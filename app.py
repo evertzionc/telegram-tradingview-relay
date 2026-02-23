@@ -17,7 +17,7 @@ TELEGRAM_CHAT_ID_PURCHASED = os.getenv('TELEGRAM_CHAT_ID_PURCHASED')
 # Health-check route for Render
 @app.route("/", methods=["GET", "HEAD"])
 def index():
-    return "Service is running", 200
+return "Service is running", 200
 
 # Webhook endpoint that TradingView will post to
 @app.route('/webhook', methods=['POST'])
